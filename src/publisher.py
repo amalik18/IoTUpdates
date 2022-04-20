@@ -30,3 +30,7 @@ def get_data():
     version_message = str(package_version.communicate()).split('\n')[0]
     print(version_message)
     return f'The version of tar is: {version_message}'
+
+
+if __name__ == '__main__':
+    main()

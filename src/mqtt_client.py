@@ -29,6 +29,3 @@ class MQTTClient:
         elif result_status == MQTT_ERR_QUEUE_SIZE:
             print(f"The message was not sent nor queued. You have reached the max_queued_messages_set limit.")
 
-
-if __name__ == '__main__':
-    publish()
