@@ -27,7 +27,7 @@ def main():
 
 def get_data():
     package_version = subprocess.Popen(['tar', '--version'], stdout=subprocess.PIPE)
-    version_message = str(package_version.communicate()).split('\n')[0]
+    version_message = package_version.communicate()[0].decode('utf-8').split('\n')[0].split(' ')[-1]
     print(version_message)
     return f'The version of tar is: {version_message}'
 

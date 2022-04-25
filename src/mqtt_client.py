@@ -1,6 +1,8 @@
 import random
+import time
+
 from paho.mqtt import client as mqtt_client
-from paho.mqtt.client import MQTTv31, MQTT_ERR_SUCCESS, MQTT_ERR_NO_CONN, MQTT_ERR_QUEUE_SIZE
+from paho.mqtt.client import MQTTv31, MQTT_ERR_SUCCESS, MQTT_ERR_NO_CONN, MQTT_ERR_QUEUE_SIZE, MQTTv5
 
 
 class MQTTClient:
@@ -12,11 +14,14 @@ class MQTTClient:
         self.broker = broker
         self.paho_client = mqtt_client.Client(client_id=client_id, transport=transport, protocol=protocol)
 
-    def connect(self, connect_callback, publish_callback):
+    def connect(self, connect_callback=None, publish_callback=None, subscribe_callback=None, message_callback=None):
         self.paho_client.on_connect = connect_callback
         self.paho_client.on_publish = publish_callback
+        self.paho_client.on_subscribe = subscribe_callback
+        self.paho_client.on_message = message_callback
         self.paho_client.connect(host=self.broker, port=self.port)
         self.paho_client.loop_start()
+        time.sleep(5)
         return self.paho_client
 
     def publish(self, topic, message):
@@ -29,3 +34,11 @@ class MQTTClient:
         elif result_status == MQTT_ERR_QUEUE_SIZE:
             print(f"The message was not sent nor queued. You have reached the max_queued_messages_set limit.")
 
+    def subscribe(self, topic, qos=0):
+        result = self.paho_client.subscribe(topic=topic, qos=qos)
+        result_status = result[0]
+        if result_status == MQTT_ERR_SUCCESS:
+            print(f"Subscribe to Topic: {topic}, SUCCESS")
+            self.paho_client.loop_forever()
+        elif result_status == MQTT_ERR_NO_CONN:
+            print(f"Subscribe to Topic: {topic}, FAILED\nPlease make sure the client is connected first.")
