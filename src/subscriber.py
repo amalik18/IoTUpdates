@@ -28,6 +28,7 @@ def main():
 
     test_client.subscribe(topic="package_version_new", qos=1)
     test_client.loop_start()
+    time.sleep(5)
 
     def publish_update():
         test_client.loop_start()

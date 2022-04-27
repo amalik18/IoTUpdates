@@ -54,3 +54,6 @@ class MQTTClient:
 
     def loop_stop(self):
         self.paho_client.loop_stop()
+
+    def loop(self, duration):
+        self.paho_client.loop(duration)
