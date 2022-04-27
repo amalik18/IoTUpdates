@@ -6,7 +6,11 @@ import random
 
 def main():
     PUBLISH = False
-
+    def publish_update():
+        test_client.loop_start()
+        test_client.publish(topic="download", message="True")
+        time.sleep(5)
+        
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
             print(f"Successfully connected to MQTT Broker")
@@ -17,7 +21,7 @@ def main():
         test_client.loop_stop()
         print(
             f"Message Received: {message.payload}\nTopic: {message.topic}\nQoS: {message.qos}\nRetain: {message.retain}")
-        if float(message.payload.split(' ')[-1]) < 1.34:
+        if float(message.payload.decode('utf-8').split(' ')[-1]) < 1.34:
             publish_update()
 
     test_client = MQTTClient(client_id=f'python-mqtt-{random.randint(0, 1000)}',
@@ -30,10 +34,7 @@ def main():
     test_client.loop_start()
     time.sleep(5)
 
-    def publish_update():
-        test_client.loop_start()
-        test_client.publish(topic="download", message="True")
-        time.sleep(5)
+
 
 if __name__ == '__main__':
     main()
