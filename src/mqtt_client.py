@@ -20,8 +20,6 @@ class MQTTClient:
         self.paho_client.on_subscribe = subscribe_callback
         self.paho_client.on_message = message_callback
         self.paho_client.connect(host=self.broker, port=self.port)
-        self.paho_client.loop_start()
-        time.sleep(5)
         return self.paho_client
 
     def publish(self, topic, message):
@@ -39,6 +37,14 @@ class MQTTClient:
         result_status = result[0]
         if result_status == MQTT_ERR_SUCCESS:
             print(f"Subscribe to Topic: {topic}, SUCCESS")
-            self.paho_client.loop_forever()
         elif result_status == MQTT_ERR_NO_CONN:
             print(f"Subscribe to Topic: {topic}, FAILED\nPlease make sure the client is connected first.")
+
+    def loop_start(self):
+        self.paho_client.loop_start()
+
+    def loop_forever(self):
+        self.paho_client.loop_forever()
+
+    def loop_stop(self):
+        self.paho_client.loop_stop()

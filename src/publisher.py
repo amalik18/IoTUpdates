@@ -1,7 +1,13 @@
 import random
 import subprocess
+import time
+from http
 
 from mqtt_client import MQTTClient
+
+
+def download_package():
+
 
 
 def main():
@@ -17,12 +23,19 @@ def main():
         else:
             print(f"Errors occurred in publishing the message")
 
+    def on_message(client, userdata, message):
+        if message.payload == "True":
+            download_package()
+
     test_client = MQTTClient(client_id=f'python-mqtt-{random.randint(0, 1000)}',
                              broker='35.165.251.136',
                              port=1883)
     test_client.connect(connect_callback=on_connect, publish_callback=on_publish)
     test_client.publish(topic="test",
                         message=get_data())
+
+    test_client.loop_start()
+    time.sleep(5)
 
 
 def get_data():
