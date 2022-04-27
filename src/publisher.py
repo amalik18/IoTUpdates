@@ -28,7 +28,7 @@ def main():
             print(f"Errors occurred in publishing the message")
 
     def on_message(client, userdata, message):
-        if message.payload == "True":
+        if message.payload.decode('utf-8') == "True":
             download_package()
 
     test_client = MQTTClient(client_id=f'python-mqtt-{random.randint(0, 1000)}',

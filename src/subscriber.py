@@ -17,8 +17,8 @@ def main():
         test_client.loop_stop()
         print(
             f"Message Received: {message.payload}\nTopic: {message.topic}\nQoS: {message.qos}\nRetain: {message.retain}")
-        if int(str(message.payload.split(' ')[-1])) < 1.34:
-            PUBLISH = True
+        if float(message.payload.split(' ')[-1]) < 1.34:
+            publish_update()
 
     test_client = MQTTClient(client_id=f'python-mqtt-{random.randint(0, 1000)}',
                              broker='35.165.251.136',
@@ -27,13 +27,12 @@ def main():
     test_client.connect(connect_callback=on_connect, message_callback=on_message)
 
     test_client.subscribe(topic="package_version_new", qos=1)
-    test_client.loop_forever()
+    test_client.loop_start()
 
-    if PUBLISH:
+    def publish_update():
         test_client.loop_start()
         test_client.publish(topic="download", message="True")
         time.sleep(5)
-
 
 if __name__ == '__main__':
     main()
