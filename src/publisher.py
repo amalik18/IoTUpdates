@@ -1,14 +1,18 @@
 import random
 import subprocess
 import time
-from http
+import requests
 
 from mqtt_client import MQTTClient
 
 
 def download_package():
-
-
+    request_path = '35.165.251.136/packages/tar-1.34.tar.gz'
+    output_path = 'tar-1.34.tar.gz'
+    response = requests.get(request_path, stream=True)
+    if response.status_code == 200:
+        with open(output_path, 'wb') as output_file:
+            output_file.write(response.raw.read())
 
 def main():
     def on_connect(client, userdata, flags, rc):
@@ -31,12 +35,16 @@ def main():
                              broker='35.165.251.136',
                              transport="websockets",
                              port=8033)
-    test_client.connect(connect_callback=on_connect, publish_callback=on_publish)
+    test_client.connect(connect_callback=on_connect, publish_callback=on_publish, message_callback=on_message)
     test_client.publish(topic="test",
                         message=get_data())
 
     test_client.loop_start()
     time.sleep(5)
+    test_client.loop_stop()
+    test_client.subscribe(topic='download', qos=1)
+    test_client.loop_forever()
+
 
 
 def get_data():
