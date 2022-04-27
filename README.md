@@ -20,6 +20,8 @@ To start the service: `sudo service mosquitto start`
 
 To customize your Mosquitto broker please edit the file in `/etc/mosquitto/mosquitto.conf`
 
+Customization is necessary to set ports for each of `tcp` and `websockets` transport methodology.
+
 ### Client
 To setup the client all you need is Python. It should be vended by default with the Ubuntu distribution but in case it
 isn't, follow the steps below:
@@ -36,6 +38,26 @@ python3 -m pip install paho-mqtt
 ```
 
 Once all of that is done, please pull down the files from this GitHub link: 
+
+### Running the Programs
+
+Clone this repo on your broker and client devices using:
+
+```bash
+git clone https://github.com/amalik18/IoTUpdates.git
+```
+
+On the Broker instance, run the `subscribe.py` file
+
+```bash
+python3 subscribe.py
+```
+
+On the Client side, run the `publisher.py` file
+
+```bash
+python3 publisher.py
+```
 
 
 
