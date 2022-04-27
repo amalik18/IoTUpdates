@@ -28,13 +28,15 @@ def main():
             print(f"Errors occurred in publishing the message")
 
     def on_message(client, userdata, message):
+        print(
+            f"Message Received: {message.payload}\nTopic: {message.topic}\nQoS: {message.qos}\nRetain: {message.retain}")
         if message.payload.decode('utf-8') == "True":
             download_package()
 
     test_client = MQTTClient(client_id=f'python-mqtt-{random.randint(0, 1000)}',
                              broker='35.165.251.136',
-                             transport="websockets",
-                             port=8033)
+                             transport="tcp",
+                             port=1883)
     test_client.connect(connect_callback=on_connect, publish_callback=on_publish, message_callback=on_message)
     test_client.publish(topic="package_version_new",
                         message=get_data())
@@ -42,6 +44,7 @@ def main():
     test_client.loop_start()
     time.sleep(5)
     test_client.loop_stop()
+    time.sleep(5)
     test_client.subscribe(topic='download', qos=1)
     test_client.loop_forever()
 
