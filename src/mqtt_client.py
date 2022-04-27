@@ -45,3 +45,12 @@ class MQTTClient:
             print(f"Subscribe to Topic: {topic}, SUCCESS")
         elif result_status == MQTT_ERR_NO_CONN:
             print(f"Subscribe to Topic: {topic}, FAILED\nPlease make sure the client is connected first.")
+
+    def loop_start(self):
+        self.paho_client.loop_start()
+
+    def loop_forever(self):
+        self.paho_client.loop_forever()
+
+    def loop_stop(self):
+        self.paho_client.loop_stop()
