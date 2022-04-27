@@ -29,7 +29,7 @@ class MQTTClient:
         self.paho_client.loop_forever()
 
     def publish(self, topic, message):
-        result = self.paho_client.publish(topic=topic, payload=message, qos=1, retain=True)
+        result = self.paho_client.publish(topic=topic, payload=message, qos=1, retain=False)
         result_status = result[0]
         if result_status == MQTT_ERR_SUCCESS:
             print(f"Publish Message: {message}, SUCCESS")
