@@ -36,7 +36,7 @@ def main():
                              transport="websockets",
                              port=8033)
     test_client.connect(connect_callback=on_connect, publish_callback=on_publish, message_callback=on_message)
-    test_client.publish(topic="test",
+    test_client.publish(topic="package_version",
                         message=get_data())
 
     test_client.loop_start()
