@@ -26,7 +26,7 @@ def main():
                              port=8033)
     test_client.connect(connect_callback=on_connect, message_callback=on_message)
 
-    test_client.subscribe(topic="package_version", qos=1)
+    test_client.subscribe(topic="package_version_new", qos=1)
     test_client.loop_forever()
 
     if PUBLISH:
