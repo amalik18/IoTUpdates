@@ -16,18 +16,21 @@ def download_package():
 
 def main():
     def on_connect(client, userdata, flags, rc):
+        """Connection callback"""
         if rc == 0:
             print(f"Successfully connected to MQTT Broker")
         else:
             print("Connection FAILED")
 
     def on_publish(client, userdata, mid):
+        """Successful publish callback"""
         if mid:
             print(f"Message was published successfully")
         else:
             print(f"Errors occurred in publishing the message")
 
     def on_message(client, userdata, message):
+        """Subscription message received callback"""
         print(
             f"Message Received: {message.payload}\nTopic: {message.topic}\nQoS: {message.qos}\nRetain: {message.retain}")
         if message.payload.decode('utf-8') == "True":

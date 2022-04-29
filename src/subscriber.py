@@ -7,17 +7,20 @@ import random
 def main():
     PUBLISH = False
     def publish_update():
+        """Method to handle the publishing of a download signal"""
         test_client.loop_start()
         test_client.publish(topic="download", message="True")
         time.sleep(5)
 
     def on_connect(client, userdata, flags, rc):
+        """Connection callback"""
         if rc == 0:
             print(f"Successfully connected to MQTT Broker")
         else:
             print("Connection FAILED")
 
     def on_message(client, userdata, message):
+        """Message received callback"""
         test_client.loop_stop()
         time.sleep(5)
         print(
