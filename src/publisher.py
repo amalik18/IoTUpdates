@@ -9,7 +9,7 @@ from mqtt_client import MQTTClient
 def download_package():
     request_path = '35.165.251.136/packages/tar-1.34.tar.gz'
     output_path = 'tar-1.34.tar.gz'
-    response = requests.get(request_path, stream=True)
+    response = requests.get(request_path, stream=True, timeout=60)
     if response.status_code == 200:
         with open(output_path, 'wb') as output_file:
             output_file.write(response.raw.read())
