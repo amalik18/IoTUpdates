@@ -1,7 +1,7 @@
 import time
 
 from mqtt_client import MQTTClient
-import random
+import secrets
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
         if float(message.payload.decode('utf-8').split(' ')[-1]) < 1.34:
             publish_update()
 
-    test_client = MQTTClient(client_id=f'python-mqtt-{random.randint(0, 1000)}',
+    test_client = MQTTClient(client_id=f'python-mqtt-{secrets.SystemRandom().randint(0, 1000)}',
                              broker='35.165.251.136',
                              transport="tcp",
                              port=1883)

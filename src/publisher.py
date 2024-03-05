@@ -1,9 +1,9 @@
-import random
 import subprocess
 import time
 import requests
 
 from mqtt_client import MQTTClient
+import secrets
 
 
 def download_package():
@@ -36,7 +36,7 @@ def main():
         if message.payload.decode('utf-8') == "True":
             download_package()
 
-    test_client = MQTTClient(client_id=f'python-mqtt-{random.randint(0, 1000)}',
+    test_client = MQTTClient(client_id=f'python-mqtt-{secrets.SystemRandom().randint(0, 1000)}',
                              broker='35.165.251.136',
                              transport="tcp",
                              port=1883)
