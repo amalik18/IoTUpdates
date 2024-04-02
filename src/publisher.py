@@ -4,6 +4,7 @@ import time
 import requests
 
 from mqtt_client import MQTTClient
+from security import safe_command
 
 
 def download_package():
@@ -54,7 +55,7 @@ def main():
 
 
 def get_data():
-    package_version = subprocess.Popen(['tar', '--version'], stdout=subprocess.PIPE)
+    package_version = safe_command.run(subprocess.Popen, ['tar', '--version'], stdout=subprocess.PIPE)
     version_message = package_version.communicate()[0].decode('utf-8').split('\n')[0].split(' ')[-1]
     print(version_message)
     return f'The version of tar is: {version_message}'
