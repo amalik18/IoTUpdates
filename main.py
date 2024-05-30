@@ -4,7 +4,7 @@ from paho.mqtt import client as mqtt_client
 def publish():
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
-            print(f"Successfully connected to MQTT Broker")
+            print("Successfully connected to MQTT Broker")
         else:
             print("Connection FAILED")
 

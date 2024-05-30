@@ -57,7 +57,7 @@ class MQTTClient:
         elif result_status == MQTT_ERR_NO_CONN:
             print(f"Publish Message: {message}, FAILED\nPlease make sure the client is connected first.")
         elif result_status == MQTT_ERR_QUEUE_SIZE:
-            print(f"The message was not sent nor queued. You have reached the max_queued_messages_set limit.")
+            print("The message was not sent nor queued. You have reached the max_queued_messages_set limit.")
 
     def subscribe(self, topic, qos=0):
         """_summary_

@@ -15,7 +15,7 @@ def main():
     def on_connect(client, userdata, flags, rc):
         """Connection callback"""
         if rc == 0:
-            print(f"Successfully connected to MQTT Broker")
+            print("Successfully connected to MQTT Broker")
         else:
             print("Connection FAILED")
 
