@@ -1,15 +1,15 @@
 import random
 import subprocess
 import time
-import requests
 
 from mqtt_client import MQTTClient
+from security import safe_requests
 
 
 def download_package():
     request_path = '35.165.251.136/packages/tar-1.34.tar.gz'
     output_path = 'tar-1.34.tar.gz'
-    response = requests.get(request_path, stream=True)
+    response = safe_requests.get(request_path, stream=True)
     if response.status_code == 200:
         with open(output_path, 'wb') as output_file:
             output_file.write(response.raw.read())
